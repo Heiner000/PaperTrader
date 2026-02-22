@@ -12,100 +12,115 @@
 </head>
 
 <body>
-    <header class="app_header">
-        <div class="brand">
-            <h1 class="brand_title">Paper Trader</h1>
-            <p class="brand-subtitle">Card-deck market sim + local save</p>
-        </div>
-
-        <section>
-            <div class="kpi">Day</div>
-            <div class="kpi">Cash</div>
-            <div class="kpi">Portfolio</div>
-            <div class="kpi">P&L</div>
-        </section>
-    </header>
-
-    <main>
-        <section class="card">
-            <div class="card_header">
-                <h2 class="card_title">Market</h2>
-                <p class="card_hint">Prices update when you draw a day card.</p>
+    <div class="app" id="app">
+        <header class="app_header">
+            <div class="brand">
+                <h1 class="brand_title">Paper Trader</h1>
+                <p class="brand_subtitle">Card-deck market sim + local save</p>
             </div>
 
-            <div class="table_wrap">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Ticker</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Day Delta</th>
-                            <th scope="col">Owned</th>
-                            <th scope="col">Position</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Trade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- content rendered w/ JS -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section class="card">
-            <div class="card_header">
-                <h2 class="card_title">Day Card</h2>
-                <p class="card_hint">One draw per day. Deck is finite.</p>
-            </div>
-
-            <div class="dayCard">
-                <div class="dayCard_label">Last card</div>
-                <div class="dayCard_text">Draw to begin</div>
-            </div>
-
-            <div class="log">
-                <div class="log_header">
-                    <h3 class="log_title">History</h3>
-                    <p class="log_hint">Most recent first.</p>
+            <section class="kpis" aria-label="Portfolio summary">
+                <div class="kpi">
+                    <div class="kpi_label">Day</div>
+                    <div class="kpi_value" id="kpiDay">-</div>
                 </div>
-                <ol class="log_list">
-                    <!-- content rendered w/ JS -->
-                </ol>
+                <div class="kpi">
+                    <div class="kpi_label">Cash</div>
+                    <div class="kpi_value" id="kpiCash">-</div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi_label">Portfolio</div>
+                    <div class="kpi_value" id="kpiPortfolio">-</div>
+                </div>
+                <div class="kpi">
+                    <div class="kpi_label">P&L</div>
+                    <div class="kpi_value" id="kpiPnL">-</div>
+                </div>
+            </section>
+        </header>
+
+        <main class="app_main">
+            <section class="card" aria-label="Market">
+                <div class="card_header">
+                    <h2 class="card_title">Market</h2>
+                    <p class="card_hint">Prices update when you draw a day card.</p>
+                </div>
+
+                <div class="table_wrap" role="region" aria-label="Market table" tabindex="0">
+                    <table class="table" id="marketTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Ticker</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Day Delta</th>
+                                <th scope="col">Owned</th>
+                                <th scope="col">Position</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Trade</th>
+                            </tr>
+                        </thead>
+                        <tbody id="marketTbody">
+                            <!-- content rendered w/ JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="card" aria-label="Market card and history">
+                <div class="card_header">
+                    <h2 class="card_title">Day Card</h2>
+                    <p class="card_hint">One draw per day. Deck is finite.</p>
+                </div>
+
+                <div class="dayCard" id="dayCard" role="status" aria-live="polite">
+                    <div class="dayCard_label">Last card</div>
+                    <div class="dayCard_text" id="dayCardText">Draw to begin</div>
+                </div>
+
+                <div class="log">
+                    <div class="log_header">
+                        <h3 class="log_title">History</h3>
+                        <p class="log_hint">Most recent first.</p>
+                    </div>
+                    <ol class="log_list" id="historyList" aria-label="Event history">
+                        <!-- content rendered w/ JS -->
+                    </ol>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app_footer">
+            <section class="controls" aria-label="Controls">
+                <button class="btn btn-primary" id="btnNextDay" type="button">
+                    Draw Next Day
+                </button>
+
+                <button class="btn" id="btnReset" type="button">Reset Run</button>
+                <button class="btn" id="btnExport" type="button" title="Copy save JSON to clipboard">Export
+                    Save</button>
+                <button class="btn" id="btnImport" type="button" title="Past save JSON to restore">Import Save</button>
+            </section>
+
+            <section class="meta" aria-label="Game info">
+                <div class="meta_item">
+                    <span class="meta_label">Trade fee:</span>
+                    <span class="meta_value" id="metaFee">-</span>
+                </div>
+                <div class="meta_item">
+                    <span class="meta_label">Deck remaining:</span>
+                    <span class="meta_value" id="metaDeckRemaining">-</span>
+                </div>
+            </section>
+        </footer>
+
+        <noscript>
+            <div class="noscript">
+                This app requires JavaScript enabled to run.
             </div>
-        </section>
-    </main>
+        </noscript>
 
-    <footer class="app_footer">
-        <section class="controls">
-            <button class="btn btn--primary">
-                Draw Next Day
-            </button>
-
-            <button class="btn">Reset Run</button>
-            <button class="btn">Export Save</button>
-            <button class="btn">Import Save</button>
-        </section>
-
-        <section class="meta">
-            <div class="meta_item">
-                <span class="meta_label">Trade fee:</span>
-                <span class="meta_value">-</span>
-            </div>
-            <div class="meta_item">
-                <span class="meta_label">Deck remaining:</span>
-                <span class="meta_value">-</span>
-            </div>
-        </section>
-    </footer>
-
-    <noscript>
-        <div class="noscript">
-            This app requires JavaScript enabled to run.
-        </div>
-    </noscript>
-
-    <script type="module" src="./src/app.js"></script>
+        <script type="module" src="./src/app.js"></script>
+    </div>
 </body>
 
 </html>
