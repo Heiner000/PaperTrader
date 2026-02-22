@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Toy stock paper trading simulator with card-deck market events (local play only).">
+    <title>Paper Trader</title>
+
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <header class="app_header">
+        <div class="brand">
+            <h1 class="brand_title">Paper Trader</h1>
+            <p class="brand-subtitle">Card-deck market sim + local save</p>
+        </div>
+
+        <section>
+            <div class="kpi">Day</div>
+            <div class="kpi">Cash</div>
+            <div class="kpi">Portfolio</div>
+            <div class="kpi">P&L</div>
+        </section>
+    </header>
+
+    <main>
+        <section class="card">
+            <div class="card_header">
+                <h2 class="card_title">Market</h2>
+                <p class="card_hint">Prices update when you draw a day card.</p>
+            </div>
+
+            <div class="table_wrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ticker</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Day Delta</th>
+                            <th scope="col">Owned</th>
+                            <th scope="col">Position</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Trade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- content rendered w/ JS -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card_header">
+                <h2 class="card_title">Day Card</h2>
+                <p class="card_hint">One draw per day. Deck is finite.</p>
+            </div>
+
+            <div class="dayCard">
+                <div class="dayCard_label">Last card</div>
+                <div class="dayCard_text">Draw to begin</div>
+            </div>
+
+            <div class="log">
+                <div class="log_header">
+                    <h3 class="log_title">History</h3>
+                    <p class="log_hint">Most recent first.</p>
+                </div>
+                <ol class="log_list">
+                    <!-- content rendered w/ JS -->
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app_footer">
+        <section class="controls">
+            <button class="btn btn--primary">
+                Draw Next Day
+            </button>
+
+            <button class="btn">Reset Run</button>
+            <button class="btn">Export Save</button>
+            <button class="btn">Import Save</button>
+        </section>
+
+        <section class="meta">
+            <div class="meta_item">
+                <span class="meta_label">Trade fee:</span>
+                <span class="meta_value">-</span>
+            </div>
+            <div class="meta_item">
+                <span class="meta_label">Deck remaining:</span>
+                <span class="meta_value">-</span>
+            </div>
+        </section>
+    </footer>
+
+    <noscript>
+        <div class="noscript">
+            This app requires JavaScript enabled to run.
+        </div>
+    </noscript>
+
+    <script type="module" src="./src/app.js"></script>
+</body>
+
+</html>
